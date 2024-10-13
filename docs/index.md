@@ -189,7 +189,35 @@
 
 ### Этап 3: Настройка маршрутизации VPN соединения
 
-### Шаг 1 (пойдет ВЫШЕ на этапе 2!!!!!!)
+### Шаг 1
+
+Теперь нужно установить репозиторий системы пакетов [Entware](https://forum.keenetic.com/topic/4299-entware/).
+
+#### Для установки используйте архив:
+
+- mipsel — mipsel-installer.tar.gz для моделей: 
+  - 4G (KN-1212)
+  - Omni (KN-1410)
+  - Extra (KN-1710/1711/1713)
+  - Giga (KN-1010/1011)
+  - Ultra (KN-1810)
+  - Viva (KN-1910/1912/1913)
+  - Giant (KN-2610)
+  - Hero 4G (KN-2310/2311)
+  - Hopper (KN-3810)
+- mips — mips-installer.tar.gz для моделей: [mips](files/mips-installer.tar.gz){:download="awesome-file"}
+  - Ultra SE (KN-2510)
+  - Giga SE (KN-2410)
+  - DSL (KN-2010)
+  - Duo (KN-2110)
+  - Ultra SE (KN-2510)
+  - Hopper DSL (KN-3610)
+- aarch64 — aarch64-installer.tar.gz для моделей: 
+  - Peak (KN-2710)
+  - Ultra (KN-1811)
+  - Giga (KN-1012)
+  - Hopper (KN-3811)
+  - Hopper SE (KN-3812)
 
 Установите систему пакетов репозитория Entware.
 
