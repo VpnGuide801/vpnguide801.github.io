@@ -205,7 +205,7 @@
   - Giant (KN-2610)
   - Hero 4G (KN-2310/2311)
   - Hopper (KN-3810)
-- mips — mips-installer.tar.gz для моделей: [mips](files/mips-installer.tar.gz){:download="awesome-file"}
+- mips — mips-installer.tar.gz для моделей: UPDATE [mips](files/mips-installer.tar.gz)
   - Ultra SE (KN-2510)
   - Giga SE (KN-2410)
   - DSL (KN-2010)
