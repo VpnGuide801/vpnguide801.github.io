@@ -187,15 +187,15 @@
 
 ![img_12.png](images/img_21.png)
 
-### Этап 3: Настройка маршрутизации VPN соединения
+## Этап 3: Настройка маршрутизации VPN соединения
 
 ### Шаг 1
 
-Теперь нужно установить репозиторий системы пакетов [Entware](https://forum.keenetic.com/topic/4299-entware/).
+Скачайте архив-устанощик системы пакетов репозитория [Entware](https://forum.keenetic.com/topic/4299-entware/) для вашей модели роутера Keenetic. 
 
-#### Для установки используйте архив:
+#### Скачайте архив:
 
-- mipsel — mipsel-installer.tar.gz для моделей: 
+- **mipsel** — [mipsel-installer.tar.gz](files/mipsel-installer.tar.gz) для моделей: 
   - 4G (KN-1212)
   - Omni (KN-1410)
   - Extra (KN-1710/1711/1713)
@@ -205,21 +205,37 @@
   - Giant (KN-2610)
   - Hero 4G (KN-2310/2311)
   - Hopper (KN-3810)
-- mips — mips-installer.tar.gz для моделей: UPDATE 2 [mips](files/mips-installer.tar.gz)
+- **mips** — [mips-installer.tar.gz](files/mips-installer.tar.gz) для моделей:
   - Ultra SE (KN-2510)
   - Giga SE (KN-2410)
   - DSL (KN-2010)
   - Duo (KN-2110)
   - Ultra SE (KN-2510)
   - Hopper DSL (KN-3610)
-- aarch64 — aarch64-installer.tar.gz для моделей: 
+- **aarch64** — [aarch64-installer.tar.gz](files/aarch64-installer.tar.gz) для моделей: 
   - Peak (KN-2710)
   - Ultra (KN-1811)
   - Giga (KN-1012)
   - Hopper (KN-3811)
   - Hopper SE (KN-3812)
 
-Установите систему пакетов репозитория Entware.
+### Шаг 2
+
+Теперь нужно перейти в раздел "Управление", далее "Приложения" и нажать на "Встроенное хранилище".
+
+![img_22.png](images/img_22.png)
+
+### Шаг 3
+
+В открывшемся диалоговом окне нажать на значок создания новой папки
+
+![img_23.png](images/img_23.png)
+
+### Шаг 4
+
+В поле ввода введите "install" и затем нажмите на кнопку "ОК".
+
+![img_24.png](images/img_24.png)
 
 1. Установка Wireguard на Keenetic роутер (шаги 11-13 не нужны, если используем не свой виртуальный сервер, а общий. Для использования общего сервака попросить у меня VPN конфиг. Шаги 27 и далее не нужны): https://docs.amnezia.org/ru/documentation/instructions/keenetic-os-awg/
 2. Настройка статической маршрутизации (2.1) или динамической маршрутизации (2.2), чтобы роутер автоматически определял для каких серверов использовать VPN, а для каких не использовать. Нужно настроить либо только 2.1, либо только 2.2. При настройке 2.1 может не работать Netflix на телеках и консолях, а придется ~1 раз в год перенастраивать статическую маршрутизацию. 
