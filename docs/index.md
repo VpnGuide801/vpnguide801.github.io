@@ -359,7 +359,7 @@
 
 Текущим шагом мы скачаем файл со списком всех заблокированных доменов сайтов и импортируем его в скачанную ранее утилиту KVAS. 
 
-Введите команду `cd /tmp && https://raw.githubusercontent.com/itdoginfo/allow-domains%20/main/Russia/inside-kvas.lst && kvas import inside-kvas.lst`
+Введите команду `cd /tmp && curl -O https://raw.githubusercontent.com/itdoginfo/allow-domains%20/main/Russia/inside-kvas.lst && kvas import inside-kvas.lst`
 
 ![img_47.png](images/img_47.png)
 
