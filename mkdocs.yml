@@ -3,7 +3,28 @@ site_name: Гайд по настройке VPN
 site_url: https://mydomain.org/mysite
 theme:
   name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-night
+        name: Switch to light mode
 markdown_extensions:
   - admonition
   - pymdownx.details
   - pymdownx.superfences
+  - toc:
+      title: Содержаниие
+extra_css:
+    - stylesheets/styles.css
+
+# Структура навигации генерируемого сайта.
+nav:
+  - Маршрутизация по доменам: index.md
+  - Маршрутизация по сетям IP адресов: ip_subnets/index.md
