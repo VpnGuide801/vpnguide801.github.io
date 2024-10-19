@@ -30,5 +30,6 @@ extra_css:
 
 # Структура навигации генерируемого сайта.
 nav:
-  - VPN маршрутизация на роутере по доменам: index.md
+  - Введение: index.md
+  - VPN маршрутизация на роутере по доменам: domain_routing_wireguard/index.md
   - VPN маршрутизация на роутере по сетям IP адресов: ip_subnets/index.md
