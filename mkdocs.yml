@@ -1,6 +1,10 @@
 # yaml-language-server: $schema=https://squidfunk.github.io/mkdocs-material/schema.json
 site_name: Гайд по настройке VPN
 site_url: https://mydomain.org/mysite
+
+plugins:
+  - include-markdown
+
 theme:
   name: material
   palette:
