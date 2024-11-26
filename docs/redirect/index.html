@@ -75,14 +75,14 @@
 </head>
 <body>
     <script>
-        window.onload = function() {
-            const currentURL = window.location.href;
-            let redirectTo = decodeURIComponent(currentURL.split('redirect_to=')[1] || '');
-            window.location.href = redirectUrl;
-            if (!redirectTo) {
-                alert(isRussian ? 'Не указана ссылка для перенаправления.' : 'No redirect link specified.');
-            }
+    window.onload = function() {
+        const currentURL = window.location.href;
+        let redirectTo = decodeURIComponent(currentURL.split('redirect_to=')[1] || '');
+        window.location.href = redirectUrl;
+        if (!redirectTo) {
+            alert(isRussian ? 'Не указана ссылка для перенаправления.' : 'No redirect link specified.');
         }
+    };
     </script>
 </body>
 </html>
