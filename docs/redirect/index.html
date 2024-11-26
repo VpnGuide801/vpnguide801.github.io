@@ -49,7 +49,9 @@
             }
 
             if (redirectTo) {
-                 window.location.href = redirectTo;
+                 setTimeout(() => {
+                    window.location.href = redirectTo;
+                }, 5000); // Автоматическое перенаправление через 5 секунд
             } else {
                 alert(isRussian ? 'Не указана ссылка для перенаправления.' : 'No redirect link specified.');
             }
