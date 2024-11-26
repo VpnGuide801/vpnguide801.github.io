@@ -23,8 +23,9 @@ body, html {
         window.onload = function() {
             const currentURL = window.location.href;
             let redirectTo = decodeURIComponent(currentURL.split('redirect_to=')[1] || '');
-            window.location.href = redirectTo;
-            if (!redirectTo) {
+            if (redirectTo) {
+                window.location.href = redirectTo;
+            } else {
                 alert(isRussian ? 'Не указана ссылка для перенаправления.' : 'No redirect link specified.');
             }
         };
