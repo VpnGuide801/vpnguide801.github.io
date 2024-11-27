@@ -22,13 +22,32 @@ body, html {
     <script>
         window.onload = function() {
             const currentURL = window.location.href;
-            let redirectTo = decodeURIComponent(currentURL.split('redirect_to=')[1] || '');
-            if (redirectTo) {
-                window.location.href = redirectTo;
-            } else {
-                alert(isRussian ? 'Не указана ссылка для перенаправления.' : 'No redirect link specified.');
-            }
-        };
+            let appDeepLink = decodeURIComponent(currentURL.split('redirect_to=')[1] || '');
+            const appStoreLink = "https://apps.apple.com/ru/app/v2box-v2ray-client/id6446814690";
+            const timeout = 2000; // Время ожидания, чтобы определить, что приложение не установлено
+
+            const start = Date.now();
+            let isAppOpened = false;
+
+            const iframe = document.createElement("iframe");
+            iframe.style.display = "none";
+            iframe.src = appDeepLink;
+            document.body.appendChild(iframe);
+
+            // Через timeout проверяем, открылось ли приложение
+            setTimeout(() => {
+                const end = Date.now();
+                if (!isAppOpened && end - start < timeout + 100) {
+                    window.location.href = appStoreLink;
+                }
+                document.body.removeChild(iframe);
+            }, timeout);
+
+            // Событие для определения успешного открытия
+            window.addEventListener("blur", () => {
+                isAppOpened = true;
+            });
+        }
     </script>
 </body>
 </html>
