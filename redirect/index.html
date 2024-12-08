@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Перейдите в Safari!</title>
+<style>
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: url('https://opt123.ru/upload/kda.importexcel/fe7/ss.png') no-repeat center center fixed;
+    background-size: cover;
+}
+</style>
+</head>
+<body>
+    <noscript>
+        <img src="https://opt123.ru/upload/kda.importexcel/fe7/ss.png" alt="Background Image" style="width: 100%; height: 100%; object-fit: cover;">
+    </noscript>
+    <script>
+        window.onload = function() {
+            const currentURL = window.location.href;
+            let redirectTo = decodeURIComponent(currentURL.split('redirect_to=')[1] || '');
+            if (redirectTo) {
+                window.location.href = redirectTo;
+            } else {
+                alert(isRussian ? 'Не указана ссылка для перенаправления.' : 'No redirect link specified.');
+            }
+        };
+    </script>
+</body>
+</html>

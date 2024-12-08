@@ -1,0 +1,730 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://mydomain.org/mysite/domain_routing_wireguard/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../ip_subnets/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.48">
+    
+    
+      
+        <title>VPN маршрутизация на роутере по доменам - Гайд по настройке VPN</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.6f8fc17f.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/styles.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#1-keenetic" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Гайд по настройке VPN" class="md-header__button md-logo" aria-label="Гайд по настройке VPN" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Гайд по настройке VPN
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              VPN маршрутизация на роутере по доменам
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Гайд по настройке VPN" class="md-nav__button md-logo" aria-label="Гайд по настройке VPN" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Гайд по настройке VPN
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Введение
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    VPN маршрутизация на роутере по доменам
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    VPN маршрутизация на роутере по доменам
+  </span>
+  
+
+      </a>
+      
+        
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержаниие">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержаниие
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-keenetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Этап 1: Приобретение Keenetic роутера
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vpn-wireguard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Этап 2: Установка VPN соединения Wireguard на роутере
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-entware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Этап 3: Установка Entware
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-kvas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Этап 4: Установка и настройка KVAS
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../ip_subnets/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    VPN маршрутизация на роутере по сетям IP адресов
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+  
+
+<nav class="md-nav md-nav--secondary" aria-label="Содержаниие">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Содержаниие
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#1-keenetic" class="md-nav__link">
+    <span class="md-ellipsis">
+      Этап 1: Приобретение Keenetic роутера
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#2-vpn-wireguard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Этап 2: Установка VPN соединения Wireguard на роутере
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#3-entware" class="md-nav__link">
+    <span class="md-ellipsis">
+      Этап 3: Установка Entware
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#4-kvas" class="md-nav__link">
+    <span class="md-ellipsis">
+      Этап 4: Установка и настройка KVAS
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  <h1>VPN маршрутизация на роутере по доменам</h1>
+
+<p>В данной инструкции вы настроите обфусцированное Wireguard подключение на роутере, установите Entware и настроите маршрутизацию по доменам в KVAS. </p>
+<p><strong>Сложность:</strong> <span style="color:#ff0000">Сложно</span></p>
+<p><strong>Длительность:</strong> ~1.5 часа ⏱</p>
+<p><strong>Плюсы:</strong></p>
+<ul>
+<li>Роутер динамически решает, какие сервисы пускать через VPN, а какие — напрямую, исключая ручное переключение VPN</li>
+<li>Не нужно перенастраивать маршрутизацию при смене IP адресов у сервисов</li>
+<li>Работают сервисы с большим количеством и динамически меняющимися IP адресами: например, Netflix на ТВ</li>
+</ul>
+<p><strong>Минусы:</strong></p>
+<ul>
+<li>Сложность настройки</li>
+<li>Актуально только для роутеров Keenetic</li>
+</ul>
+<h2 id="1-keenetic">Этап 1: Приобретение Keenetic роутера</h2>
+<ul>
+<li>Купить Keenetic роутер можно в <a href="https://shop.keenetic.ru/collection/main?characteristics%5B%5D=69931032&amp;characteristics%5B%5D=69931147">официальном магазине</a>. </li>
+<li>Не покупайте Mesh-ретранслятор (Keenetic Buddy) в качестве роутера. Вы не сможете настроить на нем VPN, потому что он не является роутером. </li>
+<li>Если вы не знаете какая модель роутера подходит именно вам, пройдите <a href="https://keenetic.ru/ru/find-my-keenetic">этот гайд</a> от Keenetic.</li>
+<li>Выполните базовые настройки роутера с помощью <a href="https://help.keenetic.com/hc/ru/articles/360000026919-%D0%9C%D0%B0%D1%81%D1%82%D0%B5%D1%80-%D0%B1%D1%8B%D1%81%D1%82%D1%80%D0%BE%D0%B9-%D0%BD%D0%B0%D1%81%D1%82%D1%80%D0%BE%D0%B9%D0%BA%D0%B8">"Мастера быстрой настройки"</a></li>
+</ul>
+<p><span class="h3">Рекомендуемые характеристики роутера:</span></p>
+<ul>
+<li>"Flash-память, Dual Image": 128 Мбайт и выше (чтобы не возиться с установкой Entware на внешнюю память)</li>
+</ul>
+<p><span class="h3">FAQ</span></p>
+<pre><code>Q. На какой моделе роутера Keenetic будет работать VPN? 
+A. На любой моделе Keenetic роутера можно настроить VPN
+
+Q. Можно ли использовать роутер от другой компании для настройки VPN? 
+A. Технически можно настроить VPN на роутере от другой компании, если этот роутер поддерживает прошивку OpenWRT. Однако для такой настройки требуются глубокие познания в устройстве роутеров и компьютерных сетей. Мы не будем рассматривать настройку этих роутеров в данной инструкции.
+</code></pre>
+<h2 id="2-vpn-wireguard">Этап 2: Установка VPN соединения Wireguard на роутере</h2>
+<div class="admonition abstract">
+<p class="admonition-title">Альтернативная инструкция "Этапа 2"</p>
+<p>Если у вас возникнут какие-то сложности на текущем этапе, читайте эту <a href="https://docs.amnezia.org/ru/documentation/instructions/keenetic-os-awg/">инструкцию от Amnezia</a> (шаги 11-13, 27 и далее пропускайте).</p>
+</div>
+<p><span class="h3">Шаг 1</span></p>
+<p>Откройте в веб-браузере, страницу управления роутером. Чаще всего, адрес страницы управления: http://192.168.1.1 или http://192.168.0.1 Как альтернатива, для роутеров Keenetic, можно открыть сайт: http://my.keenetic.net</p>
+<pre><code>Имя пользователя по умолчанию: admin.
+Если вам не известен пароль, в некоторых случаях он может быть указан на обратной стороне роутера. Часто встречаются простые пароли по-умолчанию, например, admin или 1234.
+</code></pre>
+<p><img alt="img.png" src="../images/img_0.png" /></p>
+<p><span class="h3">Шаг 2</span></p>
+<p>Сразу после авторизации, перейдите в раздел "Управление", далее "Параметры системы", разверните пункт "startup-config" и сохраните резервную копию нынешних настроек вашего роутера.</p>
+<p><img alt="img.png" src="../images/img_5.png" /></p>
+<p><span class="h3">Шаг 3</span></p>
+<p>Проверьте какая версия KeeneticOS установлена на роутере, и предлагается ли обновление KeeneticOS до версии 4.2., так как поддержка WireGuard с параметрами asc, в KeeneticOS, появилась начиная с версии 4.2 Alpha 2. Если для вашего роутера ещё не вышел релиз KeeneticOS 4.2, попробуйте переключить канал обновления, на "Предварительный". </p>
+<p>Если текущая версия KeeneticOS меньше 4.2, выполните обновление роутера до версии 4.2 или новее, нажав кнопу "Обновить KeeneticOS" на странице "Параметры системы". В процессе обновления, роутер выполнит перезагрузку.</p>
+<p><img alt="img_1.png" src="../images/img_1.png" /></p>
+<p><span class="h3">Шаг 4</span></p>
+<p>Если уже установлена версия KeeneticOS 4.2, нужно проверить наличие необходимого компонента системы. Нажмите кнопку "Изменить набор компонентов".</p>
+<p><img alt="img_2.png" src="../images/img_2.png" /></p>
+<p><span class="h3" id="step_2_5">Шаг 5</span></p>
+<p>На открывшейся странице "Компоненты операционной системы" проверьте наличие установленных компонентов. </p>
+<p>В секции "Сетевые функции":</p>
+<ul>
+<li>"WireGuard VPN"</li>
+</ul>
+<p><img alt="img_3.png" src="../images/img_3_1.png" /></p>
+<p>Если компонент не установлен, отметьте соответствующий чек-бокс для установки, и нажмите появившуюся снизу кнопку "Обновить KeeneticOS". Дождитесь, пока роутер обновится и перезагрузится.</p>
+<p><span class="h3">Шаг 6</span></p>
+<p>После обновления и перезагрузки роутера, нужно заново авторизоваться на странице управления роутером.</p>
+<p><img alt="img.png" src="../images/img_0.png" /></p>
+<p><span class="h3">Шаг 7</span></p>
+<p>Убедитесь, что KeeneticOS обновилась до версии 4.2, и что необходимые компоненты, перечисленные выше, установлены.</p>
+<p><img alt="img.png" src="../images/img_4.png" /></p>
+<p><span class="h3">Шаг 8</span></p>
+<p>Теперь, вам потребуется файл конфигурации AmneziaWG в нативном формате (т.е. файл, с расширением .conf). Вы можете получить этот файл 2-мя сопсобами: 
+1. Найти и оплатить аренду личного виртуального сервера VPS (цена VPS: <em>500-1000 руб/мес</em>). <a href="https://amnezia.org/ru/downloads">Скачать AmneziaVPN</a>. Настроить протокол AmneziaWG на виртуальном сервере через приложение AmneziaVPN. 
+2. Попросить у меня выдать VPN конфиг в <a href="https://t.me/infinity_coder">личных сообщениях Telegram</a> (цена: <em>400 руб/мес</em>)</p>
+<pre><code>Один файл одновременно можно использовать только на одном устройстве!
+</code></pre>
+<p><span class="h3">Шаг 9</span></p>
+<p>Найдите и откройте только что сохранённый файл конфигурации в какой-нибудь текстовой программе, например в "<em>Блокноте</em>" (для Windows) или "<em>TextEdit</em>" (для MacOS).</p>
+<p><img alt="img.png" src="../images/img_8.png" /></p>
+<p><span class="h3">Шаг 10</span></p>
+<p>Из данного файла Вам понадобятся значения параметров <code>Jc</code>, <code>Jmin</code>, <code>Jmax</code>, <code>S1</code>, <code>S2</code>, <code>H1</code>, <code>H2</code>, <code>H3</code>, <code>H4</code> - это asc параметры.</p>
+<p><img alt="img.png" src="../images/img_9.png" /></p>
+<p><span class="h3">Шаг 11</span></p>
+<p>Теперь, Вам нужно вернуться к настройкам роутера, и перейти в раздел Интернет и выбрать "Другие подключения".</p>
+<p>Выберите секцию Wireguard, в ней создайте новое подключения, импортировав сохранённый файл конфигурации AmneziaWG. Для этого нажмите на ссылку "Загрузить из файла"</p>
+<p><img alt="img_2.png" src="../images/img_11.png" /></p>
+<p><span class="h3">Шаг 12</span></p>
+<p>В появившемся окне файлового менеджера, перейдите в папку, где Вы сохранили файл конфигурации AmneziaWG, выберите его, и нажмите кнопку "Открыть".</p>
+<p><img alt="img_3.png" src="../images/img_12.png" /></p>
+<p><span class="h3">Шаг 13</span></p>
+<p>Через несколько секунд, в секции Wireguard, должно появится новое соединение, с таким же названием, как было у импортированного файла. Но использовать появившееся подключение, еще рано. Нужно зайти в его настройки для редактирования, щелкнув по его строке в любом месте, кроме свитчера.</p>
+<pre><code>Внутренний IP-адрес созданного подключения, должен быть уникальным, среди других имеющихся соединений Wireguard. Иначе, эти соединения, будут конфликтовать. В такой ситуации, для одного из конфликтующих соединений, потребуется создать другой (новый) файл конфигурации, с другим IP-адресом.
+</code></pre>
+<p><img alt="img_4.png" src="../images/img_13.png" /></p>
+<p><span class="h3">Шаг 14</span></p>
+<p>В открывшемся окне настроек подключения, отметь чек-бокс "Использовать для выхода в интернет", после чего сохраните внесённые изменения, нажав кнопку "Сохранить", внизу страницы с настройками.</p>
+<pre><code>Если у Вас есть несколько соединений, с одинаковым названием, стоит переименовать их так, чтобы название только что созданного подключения WireGuard, стало уникальным.
+</code></pre>
+<p><img alt="img_5.png" src="../images/img_14.png" /></p>
+<p><span class="h3">Шаг 15</span></p>
+<p>Теперь вам нужно, перейти в веб-версию командной строки роутера Keenetic, для выполнения ряда команд. Для этого необходимо перейти в настройки, нажать на изображение шестеренки, в правом верхнем углу веб-страницы, и перейти по ссылке "Командная строка".</p>
+<p><img alt="img_6.png" src="../images/img_15.png" /></p>
+<p><span class="h3">Шаг 16</span></p>
+<p>Введите команду <code>show interface</code> и нажмите кнопку "Отправить запрос". Ниже, отобразится информация обо всех имеющихся интерфейсах.</p>
+<p><img alt="img_16.png" src="../images/img_16.png" /></p>
+<p><span class="h3">Шаг 17</span></p>
+<p>Теперь нужно узнать имя нужного интерфейса, по названию созданного ранее подключения. Для этого, откройте поиск по странице (это можно сделать, одновременно нажав две клавиши, Ctrl+F). Введите для поиска, название созданного ранее подключения. В данном примере, это <code>amnezia_for_awg</code>. Должно быть найдено одно, уникальное название в поле "description". А рядом с ним, будет находится другое поле, "interface-name", в котором отображается имя нужного интерфейса. В данном примере, это <code>Wireguard0</code> .</p>
+<p><img alt="img_8.png" src="../images/img_17.png" /></p>
+<p><span class="h3">Шаг 18</span></p>
+<p>Теперь, зная имя интерфейса и значения параметров asc из файла в формате <code>.conf</code> который мы сохранили ранее. Нужно заменить все значения шаблона в скобках, вашими значениями, а сами скобки удалить.</p>
+<p><code>interface {name} wireguard asc {jc} {jmin} {jmax} {s1} {s2} {h1} {h2} {h3} {h4}</code></p>
+<p>В данном примере, строка примет вид:</p>
+<p><code>interface Wireguard0 wireguard asc 3 10 50 68 35 1909417448 2095337472 774578285 1749821106</code></p>
+<p>Получившуюся строку, нужно вставить в вэб-версии командной строки роутера, и нажать кнопку "Отправить запрос". Если Вы ввели правильную команду, ниже будет выведен результат обработки запроса, как на приведённом скриншоте.</p>
+<p><img alt="img_9.png" src="../images/img_18.png" /></p>
+<p><span class="h3">Шаг 19</span></p>
+<p>Теперь, следует сохранить изменения в конфигурации роутера. Введите команду system configuration save, и нажмите "Отправить запрос". Если всё введено верно, ниже будет выведен результат обработки запроса, как на приведённом скриншоте.</p>
+<p><img alt="img_10.png" src="../images/img_19.png" /></p>
+<p><span class="h3">Шаг 20</span></p>
+<p>Теперь нужно перейти в раздел "Интернет", далее "Другие подключения", и проверить работоспособность созданного подключения WireGuard, переключив его состояние на "Включено". Через несколько секунд, отметка активности пира, должна изменить цвет с серого, на зелёный. Также, должна отобразиться информация о входящем/исходящем трафике, и о времени с последнего "рукопожатия".</p>
+<pre><code>В случае каких либо проблем с подключением, ещё раз проверьте все проделанные действия и введённые параметры. Также, можно прейти в раздел Управление -&gt; Диагностика -&gt; Показать журнал.
+</code></pre>
+<p><img alt="img_11.png" src="../images/img_20.png" /></p>
+<p><span class="h3">Шаг 21</span></p>
+<p>Если подключение установилось успешно, нужно перейти в раздел "Интернет" - "Приоритеты подключения".</p>
+<p>В настройках Политик доступа в Политике по умолчанию созданное VPN-подключение (amnezia_for_awg) должно идти ниже вашего основного интернет-подключения.</p>
+<p><img alt="img_12.png" src="../images/img_21.png" /></p>
+<h2 id="3-entware">Этап 3: Установка Entware</h2>
+<div class="admonition abstract">
+<p class="admonition-title">Альтернативная инструкция "Этапа 3"</p>
+<p>Если у вас возникнут какие-то сложности на текущем этапе, читайте эту <a href="https://help.keenetic.com/hc/ru/articles/360021888880-%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-OPKG-Entware-%D0%BD%D0%B0-%D0%B2%D1%81%D1%82%D1%80%D0%BE%D0%B5%D0%BD%D0%BD%D1%83%D1%8E-%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D1%8C-%D1%80%D0%BE%D1%83%D1%82%D0%B5%D1%80%D0%B0">инструкцию от Keenetic</a>.</p>
+</div>
+<p><span class="h3">Шаг 1</span></p>
+<p>Перейдите в раздел "Управление", далее "Параметры системы".</p>
+<p><img alt="img.png" src="../images/img_2.png" /></p>
+<p><span class="h3">Шаг 2</span></p>
+<p>На открывшейся странице "Компоненты операционной системы" проверьте наличие установленных компонентов. </p>
+<p>В секции "Базовые компоненты":</p>
+<ul>
+<li>"Сервер SSH"</li>
+</ul>
+<p><img alt="img_3.png" src="../images/img_3_2.png" /></p>
+<p>В секции "Пакеты OPKG":</p>
+<ul>
+<li>"Поддержка открытых пакетов"</li>
+<li>"Модули ядра для поддержки файловых систем"</li>
+</ul>
+<p><img alt="img_3.png" src="../images/img_3_3.png" /></p>
+<p>Если какой-то из компонентов не установлен, отметьте соответствующий чек-бокс для установки, и нажмите появившуюся снизу кнопку "Обновить KeeneticOS". Дождитесь, пока роутер обновится и перезагрузится.</p>
+<p><span class="h3">Шаг 3</span></p>
+<p>Скачайте архив-устанощик системы пакетов репозитория <a href="https://forum.keenetic.com/topic/4299-entware/">Entware</a> для вашей модели роутера Keenetic. </p>
+<p><span class="h4">Скачайте архив:</span></p>
+<ul>
+<li><strong>mipsel</strong> — <a href="../files/mipsel-installer.tar.gz">mipsel-installer.tar.gz</a> для моделей: </li>
+<li>Giga (KN-1010/1011)</li>
+<li>Ultra (KN-1810)</li>
+<li>Viva (KN-1910/1912/1913)</li>
+<li>Hero 4G (KN-2310/KN-2311)</li>
+<li>Giant (KN-2610)</li>
+<li>Skipper 4G (KN-2910)</li>
+<li>Hopper (KN-3810)</li>
+<li><strong>mips</strong> — <a href="../files/mips-installer.tar.gz">mips-installer.tar.gz</a> для моделей:</li>
+<li>Giga SE (KN-2410)</li>
+<li>Ultra SE (KN-2510)</li>
+<li>DSL (KN-2010)</li>
+<li>Launcher DSL (KN-2012)</li>
+<li>Duo (KN-2110)</li>
+<li>Skipper DSL (KN-2112)</li>
+<li>Hopper DSL (KN-3610)</li>
+<li><strong>aarch64</strong> — <a href="../files/aarch64-installer.tar.gz">aarch64-installer.tar.gz</a> для моделей: </li>
+<li>Peak (KN-2710)</li>
+<li>Ultra (KN-1811)</li>
+<li>Giga (KN-1012)</li>
+<li>Hopper (KN-3811)</li>
+<li>Hopper SE (KN-3812)</li>
+</ul>
+<p><span class="h3">Шаг 4</span></p>
+<p>Теперь нужно перейти в раздел "Управление", далее "Приложения" и нажать на "Встроенное хранилище".</p>
+<p><img alt="img_22.png" src="../images/img_22.png" /></p>
+<p><span class="h3">Шаг 5</span></p>
+<p>В открывшемся диалоговом окне нажать на иконку "Создать папку..."</p>
+<p><img alt="img_23.png" src="../images/img_23.png" /></p>
+<p><span class="h3">Шаг 6</span></p>
+<p>В поле ввода введите "install" и затем нажмите на кнопку "ОК".</p>
+<p><img alt="img_24.png" src="../images/img_24.png" /></p>
+<p><span class="h3">Шаг 7</span></p>
+<p>Выберите созданную папку "install" и затем нажмите на иконку "Загрузить файл в выбранную папку"</p>
+<p><img alt="img_25.png" src="../images/img_25.png" /></p>
+<p><span class="h3">Шаг 8</span></p>
+<p>В появившемся окне файлового менеджера, перейдите в папку, где вы сохранили установщик Entware, выберите его, и нажмите кнопку "Открыть".</p>
+<p><img alt="img_26.png" src="../images/img_26.png" /></p>
+<p><span class="h3">Шаг 9</span></p>
+<p>На этом этапе у вас должен появиться загруженный архив в хранилище роутера</p>
+<p><img alt="img_27.png" src="../images/img_27.png" /></p>
+<p><span class="h3">Шаг 10</span></p>
+<p>Теперь вам нужно, перейти в веб-версию командной строки роутера Keenetic. Для этого необходимо перейти в настройки, нажать на изображение шестеренки, в правом верхнем углу веб-страницы, и перейти по ссылке "Командная строка".</p>
+<p><img alt="img_28.png" src="../images/img_28.png" /></p>
+<p><span class="h3">Шаг 11</span></p>
+<p>В интерфейсе командной строки введите команду <code>opkg disk storage:/</code> и нажмите кнопку "Отправить запрос". Ниже будет выведен результат обработки запроса, как на приведённом скриншоте.</p>
+<pre><code>После ввода команды `opkg dns-override` у вас должен пропасть интернет. Это нормально. Так и должно быть, так как мы отключаем этой командой системный DNS-сервер. Все последующие шаги по установке пакета позволят его реанимировать.
+</code></pre>
+<p><img alt="img_29.png" src="../images/img_29.png" /></p>
+<p><span class="h3">Шаг 12</span></p>
+<p>Далее необходимо сохранить настройки. В том же поле введите команду <code>system configuration save</code>, и нажмите кнопку "Отправить запрос". Ниже будет выведен результат обработки запроса, как на приведённом скриншоте.</p>
+<p><img alt="img_34.png" src="../images/img_34.png" /></p>
+<p><span class="h3">Шаг 13</span></p>
+<p>Перейдите в раздел "Управление", далее "Диагностика" и нажмите на кнопку "Показать журнал".</p>
+<p><img alt="img_29.png" src="../images/img_30.png" /></p>
+<p><span class="h3">Шаг 14</span></p>
+<p>Если вы все сделали правильно, в системном журнале будет выведено сообщение "Установка системы пакетов \"Entware\" завершена". Если на этом этапе произошла ошибка, найдите решение в Google самостоятельно или <a href="https://t.me/infinity_coder">напишите мне</a> в Telegram. </p>
+<p><img alt="img_30.png" src="../images/img_31.png" /></p>
+<h2 id="4-kvas">Этап 4: Установка и настройка KVAS</h2>
+<div class="admonition abstract">
+<p class="admonition-title">Альтернативная инструкция "Этапа 4"</p>
+<p>Если у вас возникнут какие-то сложности на текущем этапе, читайте эту <a href="https://github.com/qzeleza/kvas/wiki/%D0%A3%D1%81%D1%82%D0%B0%D0%BD%D0%BE%D0%B2%D0%BA%D0%B0-%D0%BF%D0%B0%D0%BA%D0%B5%D1%82%D0%B0">инструкцию от разработчика КВАС</a> или смотрите <a href="https://www.youtube.com/watch?v=7FKPs0_908U">видео на YouTube от ITDog</a>.</p>
+</div>
+<p><span class="h3">Шаг 1</span></p>
+<p>Отключите поддержку IPv6 на странице вашего проводного подключения (если поддержка IPv6 доступна в интерфейсе роутера).</p>
+<p>Для этого перейдите в раздел "Интернет", далее "Кабель Ethernet". Если в интерфейсе отображается блок "Параметры IPv6", выберите в выпадающем меню пункт "Не используется" и нажмите кнопку "Сохранить".</p>
+<pre><code>Внимательный читатель мог заметить, что весь процесс установки я показывал на роутере Keenetic Viva, а отключение IPv6 на роутере Keenetic Ultra. Это как раз связано с тем, что моя модель Keenetic Viva изначально не поддерживает IPv6.
+</code></pre>
+<p><img alt="img_32.png" src="../images/img_32.png" /></p>
+<p><span class="h3">Шаг 2</span></p>
+<p>Перейдите в раздел "Мои сети и Wi-Fi", далее "Домашняя сеть". Убедитесь, что выбрана политика доступа "Политика по умолчанию". </p>
+<p><img alt="img_33.png" src="../images/img_33.png" /></p>
+<p><span class="h3">Шаг 3</span></p>
+<p>Проверьте, что в настройках ваших клиентов, которые подключаются к нему по <code>wifi</code>, в строке адреса вашего dns, указан адрес вашего роутера, а не dns вашего провайдера или из списка стандартных адресов типа <code>8.8.8.8</code>, <code>1.1.1.1</code>, <code>9.9.9.9</code> или им подобные. </p>
+<p><span class="h4">Проверка DNS адреса для WiFi на MacOS:</span>
+1. Откройте системное меню, нажав на иконку яблока сверху слева. Нажмите "Системные настройки". <img alt="img_35.png" src="../images/img_35.png" />
+2. Нажмите "WiFi", далее нажмите рядом с подключенной точкой доступа кнопку "Подробнее...". <img alt="img_36.png" src="../images/img_36.png" />
+3. Проверьте, что DNS адрес написан серым текстом, то есть используется адрес роутера, а не добавлен вручную. Если это не так, выберите DNS адрес и удалите его, нажав снизу кнопку "-". На скриншоте ниже показан правильный вариант отображения DNS адреса роутера. <img alt="img_37.png" src="../images/img_37.png" /></p>
+<p><span class="h3">Шаг 4</span></p>
+<p>Проверьте, что ваш браузер не использует собственные dns, так как они имеют больший приоритет, чем настройки, указанные в пункте выше</p>
+<p><span class="h4">Проверка DNS адреса для браузера Chrome:</span>
+1. Перейдите в Google Chrome и нажмите на 3 точки сверху справа. <img alt="img_38.png" src="../images/img_38.png" />
+2. Выберите секцию "Конфиденциальность и безопасность". Нажмите на пункт "Безопасность". <img alt="img_39.png" src="../images/img_39.png" />
+3. Проверьте, что в пункте "Выбрать поставщика услуг DNS" выбрано значение "Использовать поставщика по умолчанию". <img alt="img_40.png" src="../images/img_40.png" /></p>
+<p><span class="h3">Шаг 5</span></p>
+<p>Откройте терминал на вашем компьютере</p>
+<p><span class="h4">На MacOS:</span>
+- Откройте Finder. Нажмите "Программы" -&gt; "Утилиты" -&gt; "Терминал". <img alt="img_42.png" src="../images/img_42.png" /></p>
+<p><span class="h3">Шаг 6</span></p>
+<p>В терминале введите команду <code>ssh root@192.168.1.1 -p 222</code>. Когда спросят "Are you sure you want to continue connecting?", введите <code>yes</code> и нажмите "Enter". Когда попросят ввести "password", введите <code>keenetic</code>. </p>
+<pre><code>Не обращайте внимание, что пароль будто не вводится в консоль. Это стандартная система безопасности, чтобы никто не подглядел пароль. После ввода пароля нажмите "Enter".
+</code></pre>
+<p><img alt="img_43.png" src="../images/img_43.png" /></p>
+<p><span class="h3">Шаг 7</span></p>
+<p>Текущим шагом мы установим утилиту KVAS, которая поможет динамически определять IP адреса для заблокированных доменов и маршрутизировать запросы на эти домены через VPN. </p>
+<p>Выполните команду <code>opkg install curl &amp;&amp; curl -sOfL http://kvas.zeleza.ru/install &amp;&amp; sh install</code></p>
+<p><img alt="img_44.png" src="../images/img_44.png" /></p>
+<p><span class="h3">Шаг 8</span></p>
+<p>Выберите настроенный ранее интерфейс Wireguard. В данном случае следовало бы напечатать <code>2</code>, так как мы настраивали в админке роутера интерфейс с названием "amnezia_for_awg". </p>
+<p><img alt="img_45.png" src="../images/img_45.png" /></p>
+<p><span class="h3">Шаг 9</span></p>
+<p>Если попросят выбрать гостевую сеть, введите <code>Q</code>.</p>
+<p><img alt="img_46.png" src="../images/img_46.png" /></p>
+<p><span class="h3">Шаг 10</span></p>
+<p>Текущим шагом мы скачаем файл со списком всех заблокированных доменов сайтов и импортируем его в скачанную ранее утилиту KVAS. </p>
+<p>Введите команду <code>cd /tmp &amp;&amp; curl -O https://raw.githubusercontent.com/itdoginfo/allow-domains%20/main/Russia/inside-kvas.lst &amp;&amp; kvas import inside-kvas.lst</code></p>
+<p><img alt="img_47.png" src="../images/img_47.png" /></p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Команда может выполняться достаточно долго. У меня команда выполнялась более 5 минут. Это нормально. Следует немного подождать. В крайнем случае вы можете закрыть терминал, разорвав SSH соединение. Заново открыть терминал, подключиться к роутеру через SSH и повторно выполнить эту команду. </p>
+</div>
+<p><span class="h3">Шаг 11</span></p>
+<p>Очистите локальный кэш DNS адресов на своем компьютере. Для этого закройте текущее окно терминала, разорвав SSH соединение и откройте терминал в новом окне. Выполните одну из этих команд, соответствующую вашей операционной системе. </p>
+<p>Если попросят ввести пароль, введите в терминале пароль от своего компьютера для входа в систему.</p>
+<ul>
+<li><strong>macOS</strong>  : <code>sudo dscacheutil -flushcache; sudo killall -HUP mDNSResponder</code> </li>
+<li><strong>Linux</strong>  : <code>sudo systemd-resolve --flush-caches или sudo resolvectl flush-caches</code> </li>
+<li><strong>Windows</strong>: <code>ipconfig /flushdns</code></li>
+</ul>
+<p><img alt="img_48.png" src="../images/img_48.png" /></p>
+<p><span class="h3">Шаг 12</span></p>
+<p>Проверьте, что заблокированные сайты теперь доступны без включения VPN локально на вашем компьютере. Если сайт будет недоступен, подождите 5 минут и попробуйте снова. Если сайт снова будет недоступен, перезагрузите роутер командой <code>system reboot</code> в вэб-админке роутера. </p>
+<p>После перезагрузки роутера у вас должен появиться доступ к большинству зарубежным сайтам.</p>
+<p><img alt="img_49.png" src="../images/img_49.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "..", "features": [], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.83f73b43.min.js"></script>
+      
+    
+  </body>
+</html>
